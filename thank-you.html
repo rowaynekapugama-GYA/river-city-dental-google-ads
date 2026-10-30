@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking received | River City Dental</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="https://rivercitydental.com.au/wp-content/uploads/2020/03/cropped-Favicon-270x270.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <style>
+    .thanks { min-height: calc(100vh - 140px); display: flex; align-items: center; position: relative; overflow: hidden; }
+    .thanks .wrap { position: relative; max-width: 720px; }
+    .thanks h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.08; margin-bottom: 20px; }
+    .thanks p { color: #DCE7F0; font-size: 1.1rem; max-width: 52ch; }
+    .thanks .hero-ctas { margin-top: 28px; }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="https://rivercitydental.com.au/" aria-label="River City Dental home">
+      <img class="brand-logo" src="images/river-city-dental-logo.png" alt="River City Dental" width="272" height="40" onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+      <span class="brand-text" hidden>River City Dental</span>
+    </a>
+    <div class="header-actions">
+      <a class="header-phone" href="tel:0736679595" data-track="call"><span>(07) 3667 9595</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="hero thanks">
+  <svg class="hero-river" aria-hidden="true" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice">
+    <g fill="none" stroke="currentColor" stroke-width="1.2">
+      <path d="M-40 520 C 180 420, 300 640, 520 560 S 820 300, 1000 380 S 1300 620, 1500 470"/>
+      <path d="M-40 545 C 180 445, 300 665, 520 585 S 820 325, 1000 405 S 1300 645, 1500 495"/>
+      <path d="M-40 570 C 180 470, 300 690, 520 610 S 820 350, 1000 430 S 1300 670, 1500 520"/>
+      <path d="M-40 595 C 180 495, 300 715, 520 635 S 820 375, 1000 455 S 1300 695, 1500 545"/>
+    </g>
+  </svg>
+  <div class="wrap">
+    <h1>Thanks, your booking is in</h1>
+    <p>We'll send you an SMS to confirm your appointment. Reply to that message and you're all set. If anything changes, give us a ring.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary btn-lg" href="tel:0736679595" data-track="call">Call (07) 3667 9595</a>
+      <a class="btn btn-ghost btn-lg" href="https://rivercitydental.com.au/">Visit our website</a>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>&copy; 2026 River City Dental. Level 2, 36 Station Road, Indooroopilly QLD 4068.</p>
+  </div>
+</footer>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  // Count the booking conversion once per visit, not on every reload.
+  (function () {
+    var counted = false;
+    try { counted = sessionStorage.getItem("rcd_booking_counted") === "1"; } catch (e) {}
+    if (!counted && window.rcdFireConversion) {
+      window.rcdFireConversion("booking");
+      try { sessionStorage.setItem("rcd_booking_counted", "1"); } catch (e) {}
+    }
+  })();
+</script>
+</body>
+</html>
