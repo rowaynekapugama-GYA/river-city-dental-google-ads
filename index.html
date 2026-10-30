@@ -50,6 +50,24 @@
 
 <a class="skip-link" href="#main">Skip to content</a>
 
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <p class="topbar-status">
+      <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span data-open-status>Open Monday to Friday</span>
+    </p>
+    <ul class="topbar-hours" aria-label="Opening hours">
+      <li data-day="1">Mon 9am to 6pm</li>
+      <li data-day="2">Tue 9am to 5pm</li>
+      <li data-day="3">Wed 8:30am to 5pm</li>
+      <li data-day="4">Thu 9am to 5pm</li>
+      <li data-day="5">Fri 8:30am to 4pm</li>
+      <li>Weekends closed</li>
+    </ul>
+    <a class="topbar-more" href="#hours" data-scroll>See all hours</a>
+  </div>
+</div>
+
 <header class="site-header">
   <div class="wrap header-inner">
     <a class="brand" href="https://rivercitydental.com.au/" aria-label="River City Dental home">
@@ -76,6 +94,15 @@
 
     <div class="wrap hero-grid">
       <div class="hero-copy">
+        <a class="review-badge" href="https://www.google.com/maps/search/?api=1&amp;query=River+City+Dental+Indooroopilly" target="_blank" rel="noopener">
+          <span class="review-stars" role="img" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 120 22" width="120" height="22" aria-hidden="true">
+              <defs><path id="rcd-star" d="M11 1.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L11 16.3l-5.9 3.3 1.3-6.6L1.5 8.4l6.6-.8z"/></defs>
+              <use href="#rcd-star" x="0"/><use href="#rcd-star" x="24"/><use href="#rcd-star" x="48"/><use href="#rcd-star" x="72"/><use href="#rcd-star" x="96"/>
+            </svg>
+          </span>
+          <span class="review-text"><strong>5.0</strong> from 147 Google reviews</span>
+        </a>
         <p class="hero-kicker">Dentist in Indooroopilly, Brisbane west</p>
         <h1>Now accepting new patients</h1>
         <p class="hero-lede">Whether it's your first check-up in years or your child's very first visit, Dr John Bacalakis and the team will make you feel at home. Unhurried appointments, clear advice and no surprises on cost.</p>
@@ -86,7 +113,7 @@
         </div>
 
         <ul class="hero-facts">
-          <li><span class="open-status" data-open-status>Open Monday to Friday</span></li>
+          <li>Book online any time</li>
           <li>Dedicated onsite parking</li>
           <li>Short walk from Indooroopilly station</li>
         </ul>
@@ -108,18 +135,23 @@
       <div class="booking-grid">
         <div class="booking-main">
           <div class="booking-frame" data-booking>
-            <!-- Same embed as rivercitydental.com.au/book-online: static iframe + Core Practice resize script -->
+            <!-- Same embed as rivercitydental.com.au/book-online. Core Practice only draws it on the practice's own domain (see bookingEmbedHosts in config.js). -->
             <iframe id="core-widget" title="River City Dental online booking" src="https://www.corepractice.is/practices/rivercitydental/river-city-dental/?widget=true&amp;autoresize=true" data-autoresize="true" width="100%" height="1000" frameborder="0" scrolling="no"></iframe>
-            <div class="booking-fallback" hidden>
-              <h3>Book in a new tab</h3>
-              <p>The booking calendar couldn't load on this page. Open it in a new tab to choose your time, or give us a call.</p>
-              <div class="booking-fallback-actions">
-                <a class="btn btn-primary btn-lg" href="https://www.corepractice.is/practices/rivercitydental/river-city-dental/" target="_blank" rel="noopener">Open online booking</a>
+            <div class="booking-link">
+              <h3>See available times</h3>
+              <p>Our live booking calendar opens in a new tab, so you can come straight back here.</p>
+              <ol class="booking-steps">
+                <li>Choose <strong>New Patient Offer</strong></li>
+                <li>Pick a day and time</li>
+                <li>Reply to our SMS to confirm</li>
+              </ol>
+              <div class="booking-link-actions">
+                <a class="btn btn-primary btn-lg" href="https://www.corepractice.is/practices/rivercitydental/river-city-dental/" target="_blank" rel="noopener" data-track="book">See available times</a>
                 <a class="btn btn-ghost-dark btn-lg" href="tel:0736679595" data-track="call">Call (07) 3667 9595</a>
               </div>
             </div>
           </div>
-          <p class="booking-alt">Calendar not showing? <a href="https://www.corepractice.is/practices/rivercitydental/river-city-dental/" target="_blank" rel="noopener">Open booking in a new tab</a></p>
+          <p class="booking-alt">Calendar not showing? <a href="https://www.corepractice.is/practices/rivercitydental/river-city-dental/" target="_blank" rel="noopener" data-track="book">Open booking in a new tab</a></p>
         </div>
 
         <aside class="offer-ticket" aria-labelledby="ticket-title">
@@ -336,7 +368,7 @@
           <iframe title="Map showing River City Dental at 36 Station Road, Indooroopilly" src="https://www.google.com/maps?q=River+City+Dental,+36+Station+Road,+Indooroopilly+QLD+4068&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
 
-        <table class="hours">
+        <table class="hours" id="hours">
           <caption>Opening hours</caption>
           <tbody>
             <tr data-day="1"><th scope="row">Monday</th><td>9:00am to 6:00pm</td></tr>

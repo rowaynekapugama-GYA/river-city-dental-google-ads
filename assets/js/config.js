@@ -9,7 +9,13 @@ window.RCD_CONFIG = {
 
   // Conversion labels from Google Ads (Goals > Conversions > the action > Tag setup).
   conversionLabels: {
-    call: "",    // fires when someone taps a phone number on this page
-    booking: ""  // fires on thank-you.html, once Core Practice redirects there after a booking
-  }
+    call: "",     // fires when someone taps a phone number on this page
+    booking: "",  // fires on thank-you.html, once Core Practice redirects there after a booking
+    bookClick: "" // optional: fires when someone opens the booking calendar in a new tab
+  },
+
+  // Core Practice only shows its booking calendar inside pages on these domains.
+  // On any other domain the page shows a "See available times" button instead of a blank box.
+  // If Core Practice adds another domain for you, list it here too.
+  bookingEmbedHosts: ["rivercitydental.com.au", "www.rivercitydental.com.au"]
 };
