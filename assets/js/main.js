@@ -44,30 +44,19 @@
   });
 
   /* ---------- Booking calendar ----------
-     Core Practice only draws its calendar inside pages on the practice's own domain.
-     Everywhere else the frame stays blank, so by default the page shows a
-     "See available times" panel, and only switches to the embedded calendar on an
-     approved domain. If the calendar still hasn't drawn after 10 seconds, the panel
-     comes back so nobody is left looking at an empty box. */
+     Core Practice only draws its calendar on domains it has approved for the practice.
+     The page shows a "See available times" panel by default while the calendar loads
+     out of sight, and swaps the calendar in only once Core Practice reports that it has
+     drawn. On a domain Core Practice doesn't allow, the panel simply stays. */
   var bookingWrap = document.querySelector("[data-booking]");
   if (bookingWrap) {
-    var hosts = CFG.bookingEmbedHosts || [];
-    var canEmbed = hosts.indexOf(window.location.hostname) !== -1;
-    if (canEmbed) {
-      var calendarDrawn = false;
-      bookingWrap.classList.add("is-embed");
-      window.addEventListener("message", function (e) {
-        var host = "";
-        try { host = new URL(e.origin).hostname; } catch (err) { return; }
-        if (/(^|\.)corepractice\.is$/.test(host) && String(e.data).indexOf("[iFrameSizer]") === 0) {
-          calendarDrawn = true;
-          bookingWrap.classList.add("is-embed");
-        }
-      });
-      setTimeout(function () {
-        if (!calendarDrawn) bookingWrap.classList.remove("is-embed");
-      }, 10000);
-    }
+    window.addEventListener("message", function (e) {
+      var host = "";
+      try { host = new URL(e.origin).hostname; } catch (err) { return; }
+      if (/(^|\.)corepractice\.is$/.test(host) && String(e.data).indexOf("[iFrameSizer]") === 0) {
+        bookingWrap.classList.add("is-embed");
+      }
+    });
   }
 
   /* ---------- Opening hours (Brisbane time) ---------- */

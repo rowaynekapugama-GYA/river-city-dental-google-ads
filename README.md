@@ -13,16 +13,21 @@ Static page, no build step, no form. Upload the folder to any host (SiteGround, 
 
 ## Online booking (read this first)
 
-Core Practice only draws its booking calendar inside pages on the practice's own domain. Tested 30 Oct 2026: the same embed shows the live calendar on rivercitydental.com.au and a blank frame on any other website.
+Core Practice only draws its booking calendar on domains it has approved for the practice. Tested 30 Oct 2026: the embed shows the live calendar on rivercitydental.com.au and stays blank on other websites. Whether it works on a subdomain such as book.rivercitydental.com.au can only be checked once that subdomain is live.
 
-So the page works two ways, automatically:
+The page handles this on its own. It always shows a "See available times" panel first (three steps, plus a button that opens the Core Practice booking page in a new tab) while the calendar loads out of sight. The moment Core Practice reports that the calendar has drawn, the calendar takes the panel's place. On a domain Core Practice doesn't allow, the panel just stays, so visitors never see a blank box.
 
-- **Hosted on rivercitydental.com.au** (recommended, e.g. `rivercitydental.com.au/new-patients/`): the live calendar shows right under the banner, beside the offer card.
-- **Hosted anywhere else** (Vercel, a GYA staging URL, opened from your computer): the same spot shows a "See available times" panel with three steps and a button that opens their Core Practice booking page in a new tab. No blank box.
+If the calendar doesn't appear on the live domain, ask Core Practice support to approve that domain for River City Dental's online booking widget. No code change is needed afterwards.
 
-The allowed domains are listed in `bookingEmbedHosts` in `assets/js/config.js`. If Core Practice approves another domain for the practice, add it there.
+## Hosting on book.rivercitydental.com.au (Vercel)
 
-To host it on their domain alongside WordPress, upload this folder as `/new-patients/` in the site's root via the host's file manager or SFTP. A real folder takes priority over WordPress page links, so `rivercitydental.com.au/new-patients/` serves this page.
+rivercitydental.com.au's DNS is not managed in SiteGround. Its nameservers are ns1, ns2 and ns3.nameserver.net.au (the registrar's DNS), so records added in SiteGround's DNS Zone Editor have no effect. Add the CNAME where those nameservers are managed:
+
+- Type: CNAME
+- Host/Name: book
+- Value: the target Vercel shows for the domain (e.g. `xxxx.vercel-dns-016.com`)
+
+Then press Refresh on the domain in Vercel. Delete the unused CNAME from SiteGround's zone editor to avoid confusion later. Don't move the nameservers to SiteGround just for this: their website, email and other records are all set up at the registrar.
 
 ## Before going live
 
@@ -34,8 +39,7 @@ To host it on their domain alongside WordPress, upload this folder as `/new-pati
 3. **Images.** All page photos are bundled in `images/`:
    - `dr-john-with-young-patients.jpg` banner background
    - `reception.jpg` beside "Easy to get to, easy to sit through"
-   - `station-road-sign.jpg` under the address in "Find us on Station Road"
-   The supplied files are small (447 to 669px wide), so the banner photo is capped at about 880px wide on desktop to stay sharp. If the practice has the original, full-size versions (especially Dr John with the kids), swap them in using the same file names for a crisper banner on large screens.
+   The supplied files are small (516 to 669px wide), so the banner photo is capped at about 880px wide on desktop to stay sharp. If the practice has the original, full-size versions (especially Dr John with the kids), swap them in using the same file names for a crisper banner on large screens.
    The Dr John section still loads the team photo from rivercitydental.com.au; download it into `images/` and update its `src` in `index.html`.
 4. **Confirm with the clinic** (see list below).
 5. **Google rating.** The banner shows "5.0 from 147 Google reviews" (checked on Google on 30 Oct 2026). Update the number every month or so in `index.html` (search for "Google reviews"); a stale count looks careless next to the real listing.
@@ -44,7 +48,7 @@ To host it on their domain alongside WordPress, upload this folder as `/new-pati
 ## Confirm with the clinic
 
 - **Free implant consultation.** In the offers list to match the implant ads. "Implant Consult" is bookable in Core Practice, but "free" isn't stated on their website. Remove the word if it isn't a standing offer.
-- **Appointment length.** The page says 90 minutes (as on their offers page); Core Practice books the New Patient Offer as a 75-minute slot.
+- **Practice website.** The practice confirmed (2 Nov 2026) the kids' new patient cap is $135 and the appointment is 75 minutes. Their own offers page still says $130 and 90 minutes; worth updating so the ad, landing page and website match.
 - **Opening hours.** Their site shows two different sets. The page uses the header version (Mon 9 to 6, Tue 9 to 5, Wed 8:30 to 5, Thu 9 to 5, Fri 8:30 to 4). Hours also appear in `main.js` (`HOURS`) and the schema block in `index.html`.
 - **New patient price.** Their site mentions both $270 and $260. The page uses $270, matching the offers page and page title.
 - **Star rating in ads (AHPRA).** The page shows only the star rating and review count, with no review text. Ahpra treats reviews that mention treatment or outcomes as testimonials, which can't be used in advertising; it hasn't clearly ruled on bare star ratings. Most practices display them, but check the practice is comfortable, and never add quoted reviews about treatment.
