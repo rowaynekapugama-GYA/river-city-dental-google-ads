@@ -29,13 +29,14 @@ rivercitydental.com.au's DNS is not managed in SiteGround. Its nameservers are n
 
 Then press Refresh on the domain in Vercel. Delete the unused CNAME from SiteGround's zone editor to avoid confusion later. Don't move the nameservers to SiteGround just for this: their website, email and other records are all set up at the registrar.
 
+## Google Tag Manager
+
+Both pages load the River City Dental GTM container (GTM-KTX3MCDD) at the top of the head, using Google's current install snippet (no body/noscript part is needed). `main.js` still loads the Google Ads tag (AW-648021917) directly. If the Ads team also publishes a Google Ads tag, conversion linker or call conversion inside GTM, use one place or the other for each conversion, not both, or calls will be counted twice.
+
 ## Before going live
 
-1. **Tracking.** `assets/js/config.js` already has the practice's Google Ads ID (AW-648021917, taken from their website). Add two conversion labels:
-   - `call` fires when someone taps a phone number
-   - `booking` fires on `thank-you.html`
-   - `bookClick` (optional) fires when someone opens the booking calendar in a new tab, for when the page isn't on their domain
-2. **Booking conversions.** Bookings happen inside the Core Practice frame, so this page can't see them directly. Core Practice's widget script supports sending the page to a URL after a booking: ask Core Practice support to set the River City Dental widget's post-booking redirect to this page's `thank-you.html`. Until that's set, track bookings from Core Practice's own reporting, and don't use "visited the booking page" as the conversion (it counts browsers, not bookings).
+1. **Call tracking (the campaign's only conversion).** Every phone number on the page is the call tracking number **07 4074 9007** (+61 7 4074 9007), which forwards to the practice on (07) 3667 9595. `assets/js/config.js` has the practice's Google Ads ID (AW-648021917). Paste the label of the "Calls from website" conversion action into `websiteCallLabel`; `trackedPhone` is already set to 07 4074 9007. For visitors from an ad, Google then shows its own forwarding number, which rings 07 4074 9007, so both Google Ads and the tracking system record the call. Test by opening the page with `#google-wcc-debug` on the end of the URL. The other labels (`call`, `booking`, `bookClick`) stay blank; this campaign counts calls only.
+2. **Online bookings** aren't counted as conversions by design. Check Core Practice (or ask Cindy) monthly for new patient bookings.
 3. **Images.** All page photos are bundled in `images/`:
    - `dr-john-with-young-patients.jpg` banner background
    - `reception.jpg` beside "Easy to get to, easy to sit through"

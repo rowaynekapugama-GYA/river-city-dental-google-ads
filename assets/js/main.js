@@ -10,9 +10,19 @@
     s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(CFG.googleAdsId);
     document.head.appendChild(s);
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function () { window.dataLayer.push(arguments); };
-    window.gtag("js", new Date());
+    // The GTM snippet in the page head already defines gtag and sends the "js" event.
+    if (!window.gtag) {
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag("js", new Date());
+    }
     window.gtag("config", CFG.googleAdsId);
+    // Website call tracking: Google replaces the phone number on the page with a
+    // forwarding number for visitors from an ad, and counts calls that connect.
+    if (CFG.websiteCallLabel && CFG.trackedPhone) {
+      window.gtag("config", CFG.googleAdsId + "/" + CFG.websiteCallLabel, {
+        phone_conversion_number: CFG.trackedPhone
+      });
+    }
   }
 
   function fireConversion(kind) {
